@@ -15,9 +15,8 @@ import { first } from 'rxjs';
       details works! {{ housingLocation?.id }}
     </p> -->
     <article>
-      
-      <section class="listing-description">
       <img class="listing-photo" [src]="housingLocation?.photo">
+      <section class="listing-description">
         <h2 class="listing-heading">{{housingLocation?.name}}</h2>
         <p class="listing-location">{{housingLocation?.city}}, {{housingLocation?.state}}
       </section>
@@ -61,7 +60,9 @@ export class DetailsComponent {
 
   constructor(){
     const housingLocationId = Number(this.route.snapshot.params['id']);
-    this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
+      this.housingLocation = housingLocation;
+    })
   }
 
   submitApplication(){
